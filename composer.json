@@ -1,0 +1,21 @@
+{
+  "name": "analytical42/googleanalyticscookie",
+  "description": "Makes Google Analytics use a server side HTTP cookie instead of the default javascript cookie set with document.cookie.",
+  "type": "library",
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "Phillip Studinski",
+      "email": "phillip@analytical42.com"
+    }
+  ],
+  "minimum-stability": "dev",
+  "require": {
+    "php": ">=7"
+  },
+  "autoload": {
+    "psr-4": {
+      "Analytical42\\GoogleAnalyticsCookie\\": "src"
+    }
+  }
+}
