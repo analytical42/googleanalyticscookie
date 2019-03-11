@@ -2,7 +2,7 @@
 
 namespace Analytical42\GoogleAnalyticsCookie;
 
-class Cookie
+class GoogleAnalyticsCookie
 {
     protected $clientId;
     protected $cookieName;
