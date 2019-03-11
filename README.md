@@ -35,12 +35,14 @@ And that's it!
 If required, it's possible to manually set the cookie name and cookie domain when instantiating:
 
 ```php
-$gaCookie = new Analytical42\GoogleAnalyticsCookie\Cookie( '_myGaCookieName', 'mydomain.com' );
+$gaCookie = new Analytical42\GoogleAnalyticsCookie\Cookie( '_myGaCookieName', 'mydomain.com', true );
 ```
 
 ## Default parameters
 
 By default, the package will use Google Analytics' default cookie name (\_ga). In addition, if you don't specify a domain, the package will use the value of [`$_SERVER['HTTP_HOST']`](http://php.net/manual/en/reserved.variables.server.php).
+
+The last option indicates whether or not to write a secure cookie (secure = `true`, unsecure = `false`).
 
 # License
 

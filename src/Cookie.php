@@ -7,11 +7,13 @@ class Cookie
     protected $clientId;
     protected $cookieName;
     protected $cookieDomain;
+    protected $secure;
     
-    public function __construct( $cookieName = '_ga', $cookieDomain = '' )
+    public function __construct( $cookieName = '_ga', $cookieDomain = '', $secure = false )
     {
         $this->cookieName = $cookieName;
         $this->cookieDomain = ( !empty( $cookieDomain ) ) ? $cookieDomain : $_SERVER['HTTP_HOST'];
+        $this->secure = $secure;
         $this->clientId = $this->readClientId();
 
         $this->setGaCookie();
@@ -25,7 +27,7 @@ class Cookie
             time() + 24*60*60*365*2, // Expiration
             '', // Cookie path
             $this->cookieDomain, // Cookie domain
-            false // Secure cookie
+            $this->secure // Secure cookie
         );
     }
 
