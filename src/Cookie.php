@@ -9,7 +9,7 @@ class Cookie
     protected $cookieDomain;
     protected $secure;
     
-    public function __construct( $cookieName = '_ga', $cookieDomain = '', $secure = false )
+    public function __construct( $cookieName = '_ga', $cookieDomain = '', $secure = true )
     {
         $this->cookieName = $cookieName;
         $this->cookieDomain = ( !empty( $cookieDomain ) ) ? $cookieDomain : $_SERVER['HTTP_HOST'];
@@ -21,14 +21,17 @@ class Cookie
 
     private function setGaCookie()
     {
-        setcookie(
-            $this->cookieName, // Cookie name
-            $this->clientId, // Client ID
-            time() + 24*60*60*365*2, // Expiration
-            '', // Cookie path
-            $this->cookieDomain, // Cookie domain
-            $this->secure // Secure cookie
-        );
+        $options = [
+            'expires'  => time() + 24*60*60*365*1,
+            'path'     => '/',
+            'domain'   => $this->cookieDomain,
+            'secure'   => $this->secure,
+            'httponly' => false
+        ];
+
+        $cookie = setcookie( $this->cookieName, $this->clientId, $options );
+
+        return $cookie;
     }
 
     private function readClientId()
@@ -39,7 +42,9 @@ class Cookie
         }
         
         // ...or generate a new Client ID
-        $clientId = ( isset( $clientId ) ) ? $clientId : $this->generateClientId();
+        if( !isset( $clientId ) ) {
+            $clientId = $this->generateClientId();
+        }
 
         return $clientId;
     }
@@ -51,7 +56,9 @@ class Cookie
         $data[6] = chr(ord($data[6]) & 0x0f | 0x40); 
         $data[8] = chr(ord($data[8]) & 0x3f | 0x80); 
 
-        return vsprintf('%s%s-%s-%s-%s-%s%s%s', str_split(bin2hex($data), 4));
+        $uuid = vsprintf('%s%s-%s-%s-%s-%s%s%s', str_split(bin2hex($data), 4));
+
+        return 'GA1.2.' . $uuid;
     }
 
     public function getClientId()
