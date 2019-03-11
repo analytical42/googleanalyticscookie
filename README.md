@@ -15,7 +15,7 @@ As of yet, first party cookies that are set in the HTTP header are not affected 
 You can install the package through [Composer](https://getcomposer.org/):
 
 ```
-$ composer require analytical42/ga-header-cookie
+$ composer require analytical42/googleanalyticscookkie
 ```
 
 There are no dependencies.
@@ -25,7 +25,7 @@ There are no dependencies.
 By default, you can run the package without any configurations when bootstrapping your application. Simply instantiate the class:
 
 ```php
-$gaCookie = new \GoogleAnalyticsCookie\Cookie;
+$gaCookie = new Analytical42\GoogleAnalyticsCookie\Cookie;
 ```
 
 And that's it!
@@ -35,7 +35,7 @@ And that's it!
 If required, it's possible to manually set the cookie name and cookie domain when instantiating:
 
 ```php
-$gaCookie = new \GoogleAnalyticsCookie\Cookie( '_myGaCookieName', 'mydomain.com' );
+$gaCookie = new Analytical42\GoogleAnalyticsCookie\Cookie( '_myGaCookieName', 'mydomain.com' );
 ```
 
 ## Default parameters
