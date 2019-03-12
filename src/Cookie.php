@@ -2,6 +2,9 @@
 
 namespace Analytical42\GoogleAnalyticsCookie;
 
+/**
+ * Makes Google Analytics use a server side HTTP cookie instead of the default javascript cookie set with document.cookie.
+ */
 class Cookie
 {
     protected $clientId;
@@ -9,6 +12,13 @@ class Cookie
     protected $cookieDomain;
     protected $secure;
     
+    /**
+     * Create the server side Google Analytics cookie
+     *
+     * @param string $cookieName
+     * @param string $cookieDomain
+     * @param boolean $secure
+     */
     public function __construct( $cookieName = '_ga', $cookieDomain = '', $secure = true )
     {
         $this->cookieName = $cookieName;
@@ -19,6 +29,11 @@ class Cookie
         $this->setGaCookie();
     }
 
+    /**
+     * Set Google Analytics cookie and Client ID storage cookie
+     *
+     * @return void
+     */
     private function setGaCookie()
     {
         $options = [
@@ -36,6 +51,11 @@ class Cookie
         return $gaCookie;
     }
 
+    /**
+     * Get Client ID from storage cookie or from Google Analytics cookie or generate a new Client ID
+     *
+     * @return void
+     */
     private function readClientId()
     {
         // Get Client ID from storage cookie if it exists
@@ -57,6 +77,11 @@ class Cookie
         return $clientId;
     }
 
+    /**
+     * Generates a Google Analytics Client ID
+     *
+     * @return void
+     */
     private function generateClientId()
     {
         $client = 'GA1';
@@ -67,6 +92,11 @@ class Cookie
         return implode( '.', ['GA1', $domain, $random, $time] );
     }
 
+    /**
+     * Getter for Client ID (in case it needs to be exposed in e.g. HTML code)
+     *
+     * @return void
+     */
     public function getClientId()
     {
         return $this->clientId;
