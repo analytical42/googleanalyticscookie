@@ -48,6 +48,8 @@ If required, it's possible to manually set the cookie name and cookie domain whe
 $gaCookie = new Analytical42\GoogleAnalyticsCookie\Cookie( '_myGaCookieName', 'mydomain.com', true );
 ```
 
+Note: If you set the cookie name and/or domain here, you need to apply the same changes to your Google Analytics snippet implementation; the configuration here does not change the configuration of Google Analytics.
+
 ## Default parameters
 
 By default, the package will use Google Analytics' default cookie name (\_ga). In addition, if you don't specify a domain, the package will use the value of [`$_SERVER['HTTP_HOST']`](http://php.net/manual/en/reserved.variables.server.php).
