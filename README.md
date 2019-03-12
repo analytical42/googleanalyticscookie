@@ -28,7 +28,7 @@ You can install the package through [Composer](https://getcomposer.org/):
 $ composer require analytical42/googleanalyticscookkie
 ```
 
-There are no dependencies.
+If your project does not use Composer, it's possible to just download the `Cookie.php` file directly, save it in your project, require it and instantiate.
 
 # Usage
 
