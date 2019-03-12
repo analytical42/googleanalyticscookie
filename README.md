@@ -16,6 +16,10 @@ The Client ID is then stored in the `_ga_storage` cookie with a two year expirat
 
 I have opted for this solution since just setting the `_ga` cookie with PHP does not seem to work as intended. The cookie will be set correctly, but once the Google Analytics library (analytics.js) loads, the cookie is overwritten with document.cookie. Please contribute, if you know how this can be avoided.
 
+## What's not included?
+
+At the moment, cross domain tracking is not supported. In order to support that, it's necessary to implement a browser fingerprint and since PHP can't read what plugins are installed in the browser, this would require javascript to be used which would complicate the implementation.
+
 # Installation
 
 You can install the package through [Composer](https://getcomposer.org/):
@@ -49,6 +53,14 @@ $gaCookie = new Analytical42\GoogleAnalyticsCookie\Cookie( '_myGaCookieName', 'm
 By default, the package will use Google Analytics' default cookie name (\_ga). In addition, if you don't specify a domain, the package will use the value of [`$_SERVER['HTTP_HOST']`](http://php.net/manual/en/reserved.variables.server.php).
 
 The last option indicates whether or not to write a secure cookie (secure = `true`, unsecure = `false`).
+
+# Credits
+
+The solution in this library is inspired by thoughts, code examples and more from:
+
+- [Simo Ahava](https://www.simoahava.com/analytics/itp-2-1-and-web-analytics/#set-cookie-headers-in-a-server-side-script)
+- [Peter Nikolow](http://peter.nikolow.me/safari-itp-2-1-demo/)
+- [Dustin Recko](https://omr.ruhr/google-analytics-itp-2-1-prevention-http-set-cookie-snippet-182092779d40)
 
 # License
 
