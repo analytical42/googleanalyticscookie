@@ -109,6 +109,7 @@ class Cookie
      */
     public function getClientId()
     {
-        return $this->clientId;
+        $clientId = explode( '.', $this->clientId );
+        return $clientId[2] . '.' . $clientId[3];
     }
 }
