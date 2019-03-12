@@ -10,6 +10,12 @@ Browser vendors are increasingly limiting the ability to use and persist cookies
 
 As of yet, first party cookies that are set in the HTTP header are not affected by steps taken by browser vendors. As such, it's possible to preserve data quality in Google Analytics by using a HTTP cookie. This package does that.
 
+The library currently works by storing the Client ID in a custom HTTP Only cookie (`_ga_storage`). Whenever a user visits the website, the library first checks this cookie for a Client ID. If it's not found, a Client ID is searched for in the default GA cookie (`_ga`), and if this isn't found either, a new Client ID is generated.
+
+The Client ID is then stored in the `_ga_storage` cookie with a two year expiration time. Secondly, the Client ID is also written to the `_ga` cookie which is then used by Google Analytics.
+
+I have opted for this solution since just setting the `_ga` cookie with PHP does not seem to work as intended. The cookie will be set correctly, but once the Google Analytics library (analytics.js) loads, the cookie is overwritten with document.cookie. Please contribute, if you know how this can be avoided.
+
 # Installation
 
 You can install the package through [Composer](https://getcomposer.org/):
