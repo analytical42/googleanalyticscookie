@@ -95,7 +95,6 @@ class Cookie
      */
     private function generateClientId()
     {
-        $client = 'GA1';
         $domain = count( explode( '.', $this->cookieDomain ) );
         $random = rand( 1000000000, 9999999999 );
         $time   = time();
