@@ -22,27 +22,35 @@ class Cookie
     private function setGaCookie()
     {
         $options = [
-            'expires'  => time() + 24*60*60*365*1,
+            'expires'  => time() + 24*60*60*365*2,
             'path'     => '/',
             'domain'   => $this->cookieDomain,
             'secure'   => $this->secure,
             'httponly' => false
         ];
 
-        $cookie = setcookie( $this->cookieName, $this->clientId, $options );
+        $storage  = setcookie( '_ga_storage', $this->clientId, $options['expires'], $options['path'], $options['domain'], $options['secure'], true );
+        $gaCookie = setcookie( $this->cookieName, $this->clientId, $options['expires'], $options['path'], $options['domain'], $options['secure'], $options['httponly'] );
 
-        return $cookie;
+        echo $options['expires'];
+        return $gaCookie;
     }
 
     private function readClientId()
     {
-        // Get Client ID from cookie if it exists
-        if( isset( $_COOKIE[$this->cookieName] ) && !empty( $_COOKIE[$this->cookieName] ) ) {
+        // Get Client ID from storage cookie if it exists
+        if( isset( $_COOKIE['_ga_storage'] ) && !empty( $_COOKIE['_ga_storage'] ) )
+        {
+            $clientId = $_COOKIE['_ga_storage'];
+        }
+        // Or get Client ID from GA cookie
+        elseif( isset( $_COOKIE[$this->cookieName] ) && !empty( $_COOKIE[$this->cookieName] ) )
+        {
             $clientId = $_COOKIE[$this->cookieName];
         }
-        
-        // ...or generate a new Client ID
-        if( !isset( $clientId ) ) {
+        // Or generate a new Client ID
+        else
+        {
             $clientId = $this->generateClientId();
         }
 
@@ -51,14 +59,12 @@ class Cookie
 
     private function generateClientId()
     {
-        // Function by Sean Behan; http://www.seanbehan.com/how-to-generate-a-uuid-in-php/
-        $data = random_bytes(16);
-        $data[6] = chr(ord($data[6]) & 0x0f | 0x40); 
-        $data[8] = chr(ord($data[8]) & 0x3f | 0x80); 
-
-        $uuid = vsprintf('%s%s-%s-%s-%s-%s%s%s', str_split(bin2hex($data), 4));
-
-        return 'GA1.2.' . $uuid;
+        $client = 'GA1';
+        $domain = count( explode( '.', $this->cookieDomain ) );
+        $random = rand( 1000000000, 9999999999 );
+        $time   = time();
+        
+        return implode( '.', ['GA1', $domain, $random, $time] );
     }
 
     public function getClientId()
