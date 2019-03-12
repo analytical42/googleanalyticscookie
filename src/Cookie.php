@@ -58,8 +58,7 @@ class Cookie
 
         $storage  = setcookie( '_ga_storage', $this->clientId, $options['expires'], $options['path'], $options['domain'], $options['secure'], true );
         $gaCookie = setcookie( $this->cookieName, $this->clientId, $options['expires'], $options['path'], $options['domain'], $options['secure'], $options['httponly'] );
-
-        echo $options['expires'];
+        
         return $gaCookie;
     }
 
