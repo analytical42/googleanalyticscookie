@@ -38,6 +38,8 @@ By default, you can run the package without any configurations when bootstrappin
 $gaCookie = new Analytical42\GoogleAnalyticsCookie\Cookie;
 ```
 
+Next, make sure that Google Analytics doesn't automatically update and overwrite the cookie. Simply set the cookieUpdate field to false using GTM.
+
 And that's it!
 
 ## Configuration
