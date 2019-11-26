@@ -14,8 +14,6 @@ The library currently works by storing the Client ID in a custom HTTP Only cooki
 
 The Client ID is then stored in the `_ga_storage` cookie with a two year expiration time. Secondly, the Client ID is also written to the `_ga` cookie which is then used by Google Analytics.
 
-I have opted for this solution since just setting the `_ga` cookie with PHP does not seem to work as intended. The cookie will be set correctly, but once the Google Analytics library (analytics.js) loads, the cookie is overwritten with document.cookie. Please contribute, if you know how this can be avoided.
-
 ## What's not included?
 
 At the moment, cross domain tracking is not supported. In order to support that, it's necessary to implement a browser fingerprint and since PHP can't read what plugins are installed in the browser, this would require javascript to be used which would complicate the implementation.
